@@ -2,7 +2,10 @@ import java.util.List;
  
 public class Calculadora { 
  
-    // SMELL: Nombre de método poco claro y parámetros que podrían ser un objeto 
+    private static final double DESCUENTO_VIP = 0.10;
+    private static final double DESCUENTO_NORMAL = 0.05;
+
+	// SMELL: Nombre de método poco claro y parámetros que podrían ser un objeto 
     public void procesarFacturas(List<Double> precios, String nombreClientes, double impuestos, boolean esVip) { 
         double total = 0; 
          
@@ -30,7 +33,7 @@ public class Calculadora {
 	}
 
 	private void calcularTotalVip(String nombreClientes, double total) {
-		total = total - (total * 0.10); 
+		total = total - (total * DESCUENTO_VIP); 
 		System.out.println("Cliente VIP: " + nombreClientes); 
 		System.out.println("Total con descuento: " + total);
 	}
