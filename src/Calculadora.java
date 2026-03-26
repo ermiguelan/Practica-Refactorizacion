@@ -7,21 +7,38 @@ public class Calculadora {
         double total = 0; 
          
         // SMELL: Lógica de cálculo mezclada con impresión (Método Largo) 
-        for (Double d : precios) { 
-            total += d; 
-        } 
+        total = calcularSumaBase(precios, total); 
  
         // SMELL: Código duplicado y números "mágicos" (0.10, 0.05) 
-        if (esVip) { 
-            total = total - (total * 0.10); 
-            System.out.println("Cliente VIP: " + nombreClientes); 
-            System.out.println("Total con descuento: " + total); 
-        } else { 
-            total = total + (total * impuestos); 
-            System.out.println("Cliente Normal: " + nombreClientes); 
-            System.out.println("Total con impuestos: " + total); 
-        } 
+        calcularSumaTotal(nombreClientes, impuestos, esVip, total); 
          
         // SMELL: Más código duplicado (la impresión del nombre) 
-    } 
+    }
+
+	private void calcularSumaTotal(String nombreClientes, double impuestos, boolean esVip, double total) {
+		if (esVip) { 
+            calcularTotalVip(nombreClientes, total); 
+        } else { 
+            calcularTotalNoVip(nombreClientes, impuestos, total); 
+        }
+	}
+
+	private void calcularTotalNoVip(String nombreClientes, double impuestos, double total) {
+		total = total + (total * impuestos); 
+		System.out.println("Cliente Normal: " + nombreClientes); 
+		System.out.println("Total con impuestos: " + total);
+	}
+
+	private void calcularTotalVip(String nombreClientes, double total) {
+		total = total - (total * 0.10); 
+		System.out.println("Cliente VIP: " + nombreClientes); 
+		System.out.println("Total con descuento: " + total);
+	}
+
+	private double calcularSumaBase(List<Double> precios, double total) {
+		for (Double d : precios) { 
+            total += d; 
+        }
+		return total;
+	} 
 } 
